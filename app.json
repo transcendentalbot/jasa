@@ -3,12 +3,13 @@
     "name": "jasa",
     "slug": "jasa",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "landscape",
     "icon": "./assets/images/icon.png",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
+      "bundleIdentifier": "com.jasa.app",
       "supportsTablet": true
     },
     "android": {
