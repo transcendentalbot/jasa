@@ -1,3 +1,6 @@
+import { Amplify } from 'aws-amplify';
+import amplifyconfig from '../src/amplifyconfiguration.json';
+Amplify.configure(amplifyconfig);
 import React, { useState, useEffect } from "react";
 import { View, Text, TextInput, ScrollView, Switch, Pressable, SafeAreaView } from "react-native";
 import { generateClient } from "aws-amplify/api";
@@ -13,7 +16,7 @@ export default function Index() {
   const [age, setAge] = useState("");
   const [genre, setGenre] = useState("");
   const [hasAnimals, setHasAnimals] = useState(false);
-  const [stories, setStories] = useState([]);
+  const [stories, setStories] = useState<{ __typename: string; id: string; name: string; description?: string | null; character?: string | null; gender?: string | null; age?: string | null; genre?: string | null; hasAnimals?: boolean | null; createdAt: string; updatedAt: string; }[]>([]);
 
   // Fetch stories from GraphQL
   useEffect(() => {
@@ -22,42 +25,61 @@ export default function Index() {
 
   async function fetchStories() {
     try {
+      console.log("📌 Fetching stories from GraphQL...");
       const storyData = await client.graphql({
         query: listStories,
       });
-      const fetchedStories = storyData.data.listStories.items;
-      setStories(fetchedStories);
+  
+      console.log("✅ Fetched stories:", storyData);
+  
+      if (storyData.data.listStories.items) {
+        setStories(storyData.data.listStories.items);
+      }
     } catch (err) {
-      console.log("Error fetching stories:", err);
+      console.error("❌ Error fetching stories:", err);
     }
   }
 
   async function addStory() {
     if (!story) return;
-    const newStory = { name: story, description: story, character, gender, age, genre, hasAnimals };
-    
+  
+    const newStory = {
+      name: story,
+      description: story,
+      character,
+      gender,
+      age,
+      genre,
+      hasAnimals,
+    };
+  
     try {
-      setStories([...stories, newStory]); // Update UI
-      setStory(""); // Clear input fields
+      console.log("📌 Sending mutation to GraphQL:", newStory);
+  
+      const response = await client.graphql({
+        query: createStory,
+        variables: { input: newStory },
+      });
+  
+      console.log("✅ Successfully created story:", response);
+  
+      if (response.data.createStory) {
+        // Update UI only after GraphQL confirms success
+        setStories([...stories, response.data.createStory]);
+      }
+  
+      // Reset input fields only after success
+      setStory("");
       setCharacter("");
       setGender("");
       setAge("");
       setGenre("");
       setHasAnimals(false);
-
-      await client.graphql({
-        query: createStory,
-        variables: {
-          input: newStory,
-        },
-      });
-
-      fetchStories(); // Refresh stories
     } catch (err) {
-      console.log("Error creating story:", err);
+      console.error("❌ Error creating story:", err);
     }
   }
-
+  
   return (
     <SafeAreaView style={{ flex: 1, padding: 20 }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
