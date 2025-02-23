@@ -10,6 +10,11 @@
       "StackName": "amplify-jasa-dev-2b7de",
       "StackId": "arn:aws:cloudformation:us-east-1:194722432945:stack/amplify-jasa-dev-2b7de/8fd145e0-f235-11ef-9d5b-0affd0765e9f",
       "AmplifyAppId": "d2ca8rr406446t"
+    },
+    "categories": {
+      "api": {
+        "jasa": {}
+      }
     }
   }
 }
