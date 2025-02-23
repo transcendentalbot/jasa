@@ -1,5 +1,8 @@
+import { Amplify } from 'aws-amplify';
+import amplifyconfig from '../src/amplifyconfiguration.json';
 import React, { useState } from "react";
 import { View, Text, TextInput, ScrollView, Switch } from "react-native";
+Amplify.configure(amplifyconfig);
 
 export default function Index() {
   const [story, setStory] = useState("");

@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-jasa-dev-2b7de-authRole",
+      "UnauthRoleArn": "arn:aws:iam::194722432945:role/amplify-jasa-dev-2b7de-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::194722432945:role/amplify-jasa-dev-2b7de-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-jasa-dev-2b7de-deployment",
+      "UnauthRoleName": "amplify-jasa-dev-2b7de-unauthRole",
+      "StackName": "amplify-jasa-dev-2b7de",
+      "StackId": "arn:aws:cloudformation:us-east-1:194722432945:stack/amplify-jasa-dev-2b7de/8fd145e0-f235-11ef-9d5b-0affd0765e9f",
+      "AmplifyAppId": "d2ca8rr406446t"
+    }
+  }
+}
