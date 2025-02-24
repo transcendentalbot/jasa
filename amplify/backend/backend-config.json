@@ -1,5 +1,19 @@
 {
   "api": {
+    "ScriptGeneratorAPI": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "ScriptGenerator"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    },
     "jasa": {
       "dependsOn": [],
       "output": {
@@ -15,6 +29,74 @@
       },
       "providerPlugin": "awscloudformation",
       "service": "AppSync"
+    }
+  },
+  "auth": {
+    "jasa": {
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaConfiguration": "OFF",
+        "mfaTypes": [
+          "SMS"
+        ],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": [],
+          "passwordPolicyMinLength": 8
+        },
+        "signupAttributes": [
+          "EMAIL"
+        ],
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "verificationMechanisms": [
+          "EMAIL"
+        ]
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
+      "serviceType": "managed"
+    }
+  },
+  "function": {
+    "ScriptGenerator": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_ScriptGenerator_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ScriptGenerator"
+        }
+      ]
+    },
+    "AMPLIFY_function_ScriptGenerator_dynamodbTableName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ScriptGenerator"
+        }
+      ]
+    },
+    "AMPLIFY_function_ScriptGenerator_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ScriptGenerator"
+        }
+      ]
+    },
+    "AMPLIFY_function_ScriptGenerator_secretsPathAmplifyAppId": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "ScriptGenerator"
+        }
+      ]
     }
   }
 }

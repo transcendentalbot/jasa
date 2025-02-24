@@ -9,10 +9,23 @@
       "UnauthRoleName": "amplify-jasa-dev-2b7de-unauthRole",
       "StackName": "amplify-jasa-dev-2b7de",
       "StackId": "arn:aws:cloudformation:us-east-1:194722432945:stack/amplify-jasa-dev-2b7de/8fd145e0-f235-11ef-9d5b-0affd0765e9f",
-      "AmplifyAppId": "d2ca8rr406446t"
+      "AmplifyAppId": "d2ca8rr406446t",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-jasa-dev-2b7de-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "api": {
+        "jasa": {},
+        "ScriptGeneratorAPI": {}
+      },
+      "function": {
+        "ScriptGenerator": {
+          "secretsPathAmplifyAppId": "d2ca8rr406446t",
+          "deploymentBucketName": "amplify-jasa-dev-2b7de-deployment",
+          "s3Key": "amplify-builds/ScriptGenerator-5139574f32435764715a-build.zip",
+          "dynamodbTableName": "DYNAMODB_REGION"
+        }
+      },
+      "auth": {
         "jasa": {}
       }
     }
