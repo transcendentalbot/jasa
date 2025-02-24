@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { View, Text, TextInput, ScrollView, Switch } from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, TextInput, ScrollView, Switch, Button, Alert } from "react-native";
 
 export default function Index() {
   const [story, setStory] = useState("");
@@ -8,6 +8,32 @@ export default function Index() {
   const [age, setAge] = useState("");
   const [genre, setGenre] = useState("");
   const [hasAnimals, setHasAnimals] = useState(false);
+  const [response, setResponse] = useState("");
+
+  const invokeEndpoint = async () => {
+    try {
+      const res = await fetch("https://euye4i5oc1.execute-api.us-east-1.amazonaws.com/dev/root", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          story,
+          character,
+          gender,
+          age,
+          genre,
+          hasAnimals,
+        }),
+      });
+      const data = await res.json();
+      setResponse(data.message);
+      Alert.alert("Response", data.message);
+    } catch (error) {
+      console.error("Error invoking endpoint:", error);
+      Alert.alert("Error", "Failed to invoke endpoint");
+    }
+  };
 
   return (
     <ScrollView style={{ flex: 1, padding: 20 }} contentContainerStyle={{ flexGrow: 1 }}>
@@ -73,6 +99,19 @@ export default function Index() {
           </View>
         </View>
       </View>
+
+      {/* Button to Invoke Endpoint */}
+      <View style={{ marginTop: 20 }}>
+        <Button title="Submit Story" onPress={invokeEndpoint} />
+      </View>
+
+      {/* Display Response */}
+      {response ? (
+        <View style={{ marginTop: 20 }}>
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Response:</Text>
+          <Text>{response}</Text>
+        </View>
+      ) : null}
     </ScrollView>
   );
 }

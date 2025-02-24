@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/story": {
+      "name": "/story",
+      "lambdaFunction": "teststory",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
