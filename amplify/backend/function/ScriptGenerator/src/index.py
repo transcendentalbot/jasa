@@ -1,13 +1,19 @@
 import json
+import traceback
 
 def lambda_handler(event, context):
     try:
-        # Parse the request body
-        body = json.loads(event['body']) if 'body' in event and event['body'] else {}
+        if 'body' in event and event['body']:
+            if isinstance(event['body'], str):
+                body = json.loads(event['body'])
+            else:
+                body = event['body']
+        else:
+            body = event
 
         print(f"Received request: {body.get('story', 'Test Story')}")
+        print(json.dumps(body, indent=2))
 
-        # Extract story details from the request
         story_details = {
             "story": body.get("story"),
             "character": body.get("character"),
@@ -18,14 +24,13 @@ def lambda_handler(event, context):
             "genre": body.get("genre"),
             "hasAnimals": body.get("hasAnimals")
         }
-        # Print input for debugging
         print("Received Story Input:", json.dumps(story_details, indent=2))
 
         return {
             'statusCode': 200,
             'headers': {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',  # Required for CORS
+                'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Methods': 'OPTIONS, POST',
                 'Access-Control-Allow-Headers': 'Content-Type',
             },
@@ -35,11 +40,14 @@ def lambda_handler(event, context):
             })
         }
     except Exception as e:
+        detailed_error = traceback.format_exc()
+        print("Error encountered:", detailed_error)
+        # WARNING: Exposing detailed error information is insecure for production!
         return {
             'statusCode': 500,
             'headers': {
                 'Content-Type': 'application/json',
                 'Access-Control-Allow-Origin': '*',
             },
-            'body': json.dumps({"error": str(e)})
+            'body': json.dumps({"error": str(e), "traceback": detailed_error})
         }
