@@ -21,6 +21,9 @@
     },
     "dynamodbTableName": {
       "Type": "String"
+    },
+    "dynamodbRegion": {
+      "Type": "String"
     }
   },
   "Conditions": {
@@ -100,6 +103,9 @@
             },
             "DYNAMODB_TABLE_NAME": {
               "Ref": "dynamodbTableName"
+            },
+            "DYNAMODB_REGION": {
+              "Ref": "dynamodbRegion"
             }
           }
         },

@@ -5,6 +5,10 @@
     {
       "cloudFormationParameterName": "dynamodbTableName",
       "environmentVariableName": "DYNAMODB_TABLE_NAME"
+    },
+    {
+      "cloudFormationParameterName": "dynamodbRegion",
+      "environmentVariableName": "DYNAMODB_REGION"
     }
   ],
   "secretNames": [
