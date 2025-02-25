@@ -16,7 +16,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.jasa.app"
     },
     "web": {
       "bundler": "metro",
@@ -37,6 +38,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "8c0f8f5d-0eed-43a4-a892-ee9c6dbe4e07"
+      }
     }
   }
 }
