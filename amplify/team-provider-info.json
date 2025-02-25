@@ -19,9 +19,8 @@
       },
       "function": {
         "ScriptGenerator": {
-          "secretsPathAmplifyAppId": "d2ca8rr406446t",
           "deploymentBucketName": "amplify-jasa-dev-2b7de-deployment",
-          "s3Key": "amplify-builds/ScriptGenerator-507732564e706b555038-build.zip"
+          "s3Key": "amplify-builds/ScriptGenerator-62506763425356736174-build.zip"
         }
       },
       "auth": {

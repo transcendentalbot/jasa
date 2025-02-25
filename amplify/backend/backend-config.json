@@ -81,14 +81,6 @@
           "resourceName": "ScriptGenerator"
         }
       ]
-    },
-    "AMPLIFY_function_ScriptGenerator_secretsPathAmplifyAppId": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "ScriptGenerator"
-        }
-      ]
     }
   }
 }
