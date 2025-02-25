@@ -74,22 +74,6 @@
         }
       ]
     },
-    "AMPLIFY_function_ScriptGenerator_dynamodbRegion": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "ScriptGenerator"
-        }
-      ]
-    },
-    "AMPLIFY_function_ScriptGenerator_dynamodbTableName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "ScriptGenerator"
-        }
-      ]
-    },
     "AMPLIFY_function_ScriptGenerator_s3Key": {
       "usedBy": [
         {

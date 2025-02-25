@@ -1,16 +1,7 @@
 {
   "permissions": {},
   "lambdaLayers": [],
-  "environmentVariableList": [
-    {
-      "cloudFormationParameterName": "dynamodbRegion",
-      "environmentVariableName": "DYNAMODB_REGION"
-    },
-    {
-      "cloudFormationParameterName": "dynamodbTableName",
-      "environmentVariableName": "DYNAMODB_TABLE_NAME"
-    }
-  ],
+  "environmentVariableList": [],
   "secretNames": [
     "ANTHROPIC_API_KEY"
   ]

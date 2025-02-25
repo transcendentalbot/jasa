@@ -18,12 +18,6 @@
     },
     "secretsPathAmplifyAppId": {
       "Type": "String"
-    },
-    "dynamodbRegion": {
-      "Type": "String"
-    },
-    "dynamodbTableName": {
-      "Type": "String"
     }
   },
   "Conditions": {
@@ -100,12 +94,6 @@
                   "ANTHROPIC_API_KEY"
                 ]
               ]
-            },
-            "DYNAMODB_REGION": {
-              "Ref": "dynamodbRegion"
-            },
-            "DYNAMODB_TABLE_NAME": {
-              "Ref": "dynamodbTableName"
             }
           }
         },
