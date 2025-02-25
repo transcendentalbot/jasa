@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { View, Text, TextInput, ScrollView, Switch, Button, Alert } from "react-native";
 
 export default function Index() {
@@ -8,27 +8,45 @@ export default function Index() {
   const [age, setAge] = useState("");
   const [genre, setGenre] = useState("");
   const [hasAnimals, setHasAnimals] = useState(false);
-  const [response, setResponse] = useState("");
+  const [responseData, setResponseData] = useState(null);
 
   const invokeEndpoint = async () => {
     try {
-      const res = await fetch("https://euye4i5oc1.execute-api.us-east-1.amazonaws.com/dev/root", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          story,
-          character,
-          gender,
-          age,
-          genre,
-          hasAnimals,
-        }),
-      });
+      const res = await fetch(
+        "https://dl8sa7hwka.execute-api.us-east-1.amazonaws.com/dev/script",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            story,
+          }),
+        }
+      );
+
       const data = await res.json();
-      setResponse(data.message);
-      Alert.alert("Response", data.message);
+      console.log("API Response:", data);
+
+      // Extract details from API response
+      if (data.main_character) {
+        setCharacter(data.main_character.name || "Unknown");
+      }
+      if (data.main_character && data.main_character.description) {
+        setGender(data.main_character.description.includes("warrior") ? "Male" : "Unknown"); // Example logic
+      }
+      if (data.setting) {
+        setAge("Unknown"); // Placeholder since age isn't in API response
+      }
+      if (data.story_type) {
+        setGenre(data.story_type);
+      }
+      if (data.event) {
+        setHasAnimals(data.event.toLowerCase().includes("animal"));
+      }
+
+      setResponseData(data); // Store full response for debugging/display
+      Alert.alert("Response", JSON.stringify(data, null, 2));
     } catch (error) {
       console.error("Error invoking endpoint:", error);
       Alert.alert("Error", "Failed to invoke endpoint");
@@ -39,7 +57,7 @@ export default function Index() {
     <ScrollView style={{ flex: 1, padding: 20 }} contentContainerStyle={{ flexGrow: 1 }}>
       <View style={{ flex: 1, flexDirection: "row" }}>
         
-        {/* LEFT PANEL: STORY INPUT (EXPANDED) */}
+        {/* LEFT PANEL: STORY INPUT */}
         <View style={{ flex: 2, paddingRight: 10 }}>
           <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10 }}>
             Enter Your Story:
@@ -62,17 +80,17 @@ export default function Index() {
           />
         </View>
 
-        {/* RIGHT PANEL: TEXT INPUTS INSTEAD OF PICKER */}
+        {/* RIGHT PANEL: DISPLAY STORY ELEMENTS */}
         <View style={{ flex: 1, paddingLeft: 10 }}>
           <Text style={{ fontSize: 18, fontWeight: "bold", marginBottom: 10 }}>
-            Story Elements:
+            Extracted Story Elements:
           </Text>
 
           {[
-            { label: "Character:", value: character, setValue: setCharacter, placeholder: "e.g., Hero" },
-            { label: "Gender:", value: gender, setValue: setGender, placeholder: "e.g., Male/Female" },
-            { label: "Age:", value: age, setValue: setAge, placeholder: "e.g., Adult" },
-            { label: "Genre:", value: genre, setValue: setGenre, placeholder: "e.g., Fantasy" },
+            { label: "Character:", value: character },
+            { label: "Gender:", value: gender },
+            { label: "Age:", value: age },
+            { label: "Genre:", value: genre },
           ].map((item, index) => (
             <View key={index} style={{ marginBottom: 10 }}>
               <Text style={{ fontSize: 14 }}>{item.label}</Text>
@@ -85,17 +103,17 @@ export default function Index() {
                   paddingLeft: 8,
                   backgroundColor: "white",
                 }}
-                placeholder={item.placeholder}
+                placeholder="Extracted value"
                 value={item.value}
-                onChangeText={item.setValue}
+                editable={false} // Prevent user input since it's API-generated
               />
             </View>
           ))}
 
           {/* Switch for Animals */}
           <View style={{ flexDirection: "row", alignItems: "center", marginTop: 10 }}>
-            <Text style={{ fontSize: 14, marginRight: 10 }}>Include Animals?</Text>
-            <Switch value={hasAnimals} onValueChange={setHasAnimals} />
+            <Text style={{ fontSize: 14, marginRight: 10 }}>Includes Animals?</Text>
+            <Switch value={hasAnimals} disabled={true} />
           </View>
         </View>
       </View>
@@ -105,13 +123,13 @@ export default function Index() {
         <Button title="Submit Story" onPress={invokeEndpoint} />
       </View>
 
-      {/* Display Response */}
-      {response ? (
-        <View style={{ marginTop: 20 }}>
-          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Response:</Text>
-          <Text>{response}</Text>
+      {/* Display Full Response for Debugging */}
+      {responseData && (
+        <View style={{ marginTop: 20, padding: 10, backgroundColor: "#f0f0f0", borderRadius: 8 }}>
+          <Text style={{ fontSize: 16, fontWeight: "bold" }}>Full API Response:</Text>
+          <Text>{JSON.stringify(responseData, null, 2)}</Text>
         </View>
-      ) : null}
+      )}
     </ScrollView>
   );
 }
