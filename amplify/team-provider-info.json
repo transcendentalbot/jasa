@@ -21,8 +21,8 @@
         "ScriptGenerator": {
           "secretsPathAmplifyAppId": "d2ca8rr406446t",
           "deploymentBucketName": "amplify-jasa-dev-2b7de-deployment",
-          "s3Key": "amplify-builds/ScriptGenerator-376a7a582b627a4f7937-build.zip",
-          "dynamodbRegion": "Story-xvqw3s5sxfd3bpay2scip3rlla-dev",
+          "s3Key": "amplify-builds/ScriptGenerator-4479764c5a52414e3263-build.zip",
+          "dynamodbRegion": "us-east-1",
           "dynamodbTableName": "Story-xvqw3s5sxfd3bpay2scip3rlla-dev"
         }
       },
